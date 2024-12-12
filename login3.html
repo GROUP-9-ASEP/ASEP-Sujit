@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+        .login-container {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            background: #00f2fe;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .login-container button:hover {
+            background: #4facfe;
+        }
+    </style>
+    <script>
+        function handleLogin() {
+            const name = document.getElementById('name').value;
+            const school = document.getElementById('school').value;
+            const rollNo = document.getElementById('rollNo').value;
+            const password = document.getElementById('password').value;
+
+            if (name && school && rollNo && password) {
+                localStorage.setItem('userName', name);
+                localStorage.setItem('schoolName', school);
+                window.location.href = 'ASEP.html'; // Ensure ASEP2.html is in the same directory or adjust the path
+            } else {
+                alert('Please fill in all fields');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="text" id="name" placeholder="Enter your name">
+        <input type="text" id="school" placeholder="Enter your school">
+        <input type="text" id="rollNo" placeholder="Enter your roll number">
+        <input type="password" id="password" placeholder="Enter your password">
+        <button onclick="handleLogin()">Login</button>
+    </div>
+</body>
+</html>
