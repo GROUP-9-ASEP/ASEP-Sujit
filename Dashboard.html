@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="ASEP.css">
+    <script>
+      
+        window.onload = function () {
+            const userName = localStorage.getItem('userName');
+            if (!userName) {
+                window.location.href = 'login3.html';
+            }
+        };
+
+        
+        function handleLogout() {
+            localStorage.removeItem('userName');
+            window.location.href = 'login3.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome to the Dashboard!</h1>
+        <p>Select a section to explore:</p>
+        <div class="section-links">
+            <a href="#classes" class="section-card">
+                <h3>Classes</h3>
+                <p>View and manage your classes.</p>
+            </a>
+            <a href="#clock" class="section-card">
+                <h3>Clock</h3>
+                <p>Check current time and set reminders.</p>
+            </a>
+            <a href="#lessons" class="section-card">
+                <h3>Lessons</h3>
+                <p>Access lesson plans and materials.</p>
+            </a>
+            <a href="#teacher-lesson" class="section-card">
+                <h3>Teacher Lessons</h3>
+                <p>View lessons created by your teachers.</p>
+            </a>
+            <a href="#schedule" class="section-card">
+                <h3>Schedule</h3>
+                <p>Check your daily and weekly schedule.</p>
+            </a>
+            <a href="#schedule-report" class="section-card">
+                <h3>Schedule Report</h3>
+                <p>Review your schedule reports.</p>
+            </a>
+        </div>
+        <button onclick="handleLogout()" class="logout-btn">Logout</button>
+    </div>
+</body>
+</html>

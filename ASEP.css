@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    color: white;
+}
+
+.dashboard-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.dashboard-container h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.dashboard-container p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.section-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    justify-items: center;
+}
+
+.section-card {
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+    color: white;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.section-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.section-card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.section-card p {
+    font-size: 14px;
+}
