@@ -59,9 +59,12 @@
             const password = document.getElementById('password').value;
 
             if (name && school && rollNo && password) {
+                // Store user details in localStorage
                 localStorage.setItem('userName', name);
                 localStorage.setItem('schoolName', school);
-                window.location.href = 'ASEP.html'; 
+
+                // Redirect to ASEP.html
+                window.location.href = 'ASEP.html';
             } else {
                 alert('Please fill in all fields');
             }
