@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <style>
-        body    {
+        body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: linear-gradient(270deg, #4facfe, #00f2fe);
@@ -42,7 +42,7 @@
 
         .navbar .logo:hover {
             transform: scale(1.1);
-        }   
+        }
 
         .navbar a {
             text-decoration: none;
@@ -103,6 +103,17 @@
             }
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Retrieve school name and user name from localStorage
+            const schoolName = localStorage.getItem('schoolName') || "SMK PUSDIKHUBAD";
+            const userName = localStorage.getItem('userName') || "Login";
+
+            // Update the navbar elements
+            document.querySelector('.navbar .logo').textContent = schoolName;
+            document.querySelector('.navbar .login').textContent = userName;
+        });
+    </script>
 </head>
 <body>
     <div class="navbar">
