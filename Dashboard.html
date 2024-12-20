@@ -5,25 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="ASEP.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(270deg, #4facfe, #00f2fe);
+            color: white;
+            animation: gradientAnimation 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .dashboard-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 28px;
+            color: #00f2fe;
+            text-shadow: 0 2px 5px rgba(0, 242, 254, 0.8);
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .section-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .section-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            width: 180px;
+            transition: transform 0.3s ease, background 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .section-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .section-card h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #00f2fe;
+        }
+
+        .logout-btn {
+            background: #00f2fe;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #4facfe;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .section-card {
+                width: 100%;
+            }
+        }
+    </style>
     <script>
-      
         window.onload = function () {
             const userName = localStorage.getItem('userName');
+            const schoolName = localStorage.getItem('schoolName');
             if (!userName) {
                 window.location.href = 'login3.html';
+                return;
             }
+            document.getElementById('welcome-message').textContent = `Welcome, ${userName}!`;
+            document.getElementById('school-name').textContent = `School: ${schoolName}`;
         };
 
-        
         function handleLogout() {
-            localStorage.removeItem('userName');
+            localStorage.clear();
             window.location.href = 'login3.html';
         }
     </script>
 </head>
 <body>
     <div class="dashboard-container">
-        <h1>Welcome to the Dashboard!</h1>
+        <h1 id="welcome-message">Welcome!</h1>
+        <p id="school-name">School:</p>
         <p>Select a section to explore:</p>
         <div class="section-links">
             <a href="#classes" class="section-card">
