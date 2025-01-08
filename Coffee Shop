@@ -1,0 +1,122 @@
+import tkinter as tk
+from tkinter import ttk, messagebox
+
+
+class CoffeeShop:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("☕ Cozy Corner Café")
+        self.root.geometry("800x900")
+        self.root.configure(bg='#f0e6d6')
+
+        self.menu = {
+            "Espresso": 180,
+            "Cappuccino": 220,
+            "Latte": 200,
+            "Americano": 190,
+            "Mocha": 250,
+            "Hot Chocolate": 210,
+            "Green Tea": 150,
+            "Croissant": 180,
+            "Muffin": 160,
+            "Chocolate Cake": 320,
+            "Cheesecake": 350
+        }
+
+        self.order = {}
+        self.setup_gui()
+
+    def setup_gui(self):
+        title_frame = tk.Frame(self.root, bg='#4a3c2d', pady=30)
+        title_frame.pack(fill='x')
+
+        tk.Label(title_frame, text="❀ ❀ ❀ ❀ ❀", font=("Helvetica", 20), fg='#f0e6d6', bg='#4a3c2d').pack()
+        tk.Label(title_frame, text="☕ Cozy Corner Café ☕", font=("Helvetica", 32, "bold"), fg='#f0e6d6',
+                 bg='#4a3c2d').pack(pady=10)
+        tk.Label(title_frame, text="Where every sip tells a story", font=("Helvetica", 14, "italic"), fg='#f0e6d6',
+                 bg='#4a3c2d').pack()
+        tk.Label(title_frame, text="❀ ❀ ❀ ❀ ❀", font=("Helvetica", 20), fg='#f0e6d6', bg='#4a3c2d').pack()
+
+        name_frame = tk.Frame(self.root, bg='#f0e6d6', pady=20)
+        name_frame.pack(fill='x')
+
+        tk.Label(name_frame, text="Welcome! Please enter your name:", font=("Helvetica", 16), bg='#f0e6d6').pack()
+        self.name_entry = tk.Entry(name_frame, font=("Helvetica", 16), width=30, justify='center')
+        self.name_entry.pack(pady=10)
+
+        menu_label = tk.Label(self.root, text="✧ Our Menu ✧", font=("Helvetica", 24, "bold"), bg='#f0e6d6')
+        menu_label.pack(pady=20)
+
+        canvas = tk.Canvas(self.root, bg='#f0e6d6', highlightthickness=0)
+        scrollbar = ttk.Scrollbar(self.root, orient="vertical", command=canvas.yview)
+        menu_frame = tk.Frame(canvas, bg='#f0e6d6')
+
+        canvas.configure(yscrollcommand=scrollbar.set)
+        scrollbar.pack(side="right", fill="y")
+        canvas.pack(side="left", fill="both", expand=True, padx=40)
+        canvas.create_window((0, 0), window=menu_frame, anchor="nw", width=canvas.winfo_reqwidth())
+
+        style = ttk.Style()
+        style.configure('Custom.TSpinbox', font=('Helvetica', 14))
+
+        for item, price in self.menu.items():
+            item_frame = tk.Frame(menu_frame, bg='#ffffff', bd=1, relief='solid', padx=15, pady=10)
+            item_frame.pack(fill='x', pady=5)
+
+            tk.Label(item_frame, text=f"{item}", font=("Helvetica", 16, "bold"), bg='#ffffff').pack(side='left')
+            tk.Label(item_frame, text=f"₹{price}", font=("Helvetica", 16), bg='#ffffff').pack(side='left', padx=15)
+
+            spinbox = ttk.Spinbox(item_frame, from_=0, to=10, width=5, font=("Helvetica", 14), style='Custom.TSpinbox')
+            spinbox.pack(side='right')
+            spinbox.set(0)
+            self.order[item] = spinbox
+
+        menu_frame.update_idletasks()
+        canvas.configure(scrollregion=canvas.bbox("all"))
+
+        tk.Button(self.root, text="Calculate Bill", command=self.calculate_bill, font=("Helvetica", 16, "bold"),
+                  bg='#4a3c2d', fg='white', padx=30, pady=15, relief='raised', cursor='hand2').pack(pady=20)
+
+        self.bill_text = tk.Text(self.root, height=10, width=40, font=("Courier", 14), bg='#ffffff', relief='sunken')
+        self.bill_text.pack(pady=10, padx=20)
+
+    def calculate_bill(self):
+        customer_name = self.name_entry.get().strip()
+        if not customer_name:
+            messagebox.showerror("Error", "Please enter your name!")
+            return
+
+        total = 0
+        bill_details = f"\n    Bill for {customer_name}\n"
+        bill_details += "    " + "=" * 32 + "\n"
+
+        has_items = False
+        for item, spinbox in self.order.items():
+            quantity = int(spinbox.get())
+            if quantity > 0:
+                has_items = True
+                item_total = quantity * self.menu[item]
+                total += item_total
+                bill_details += f"    {item:<15} x{quantity:>2}  ₹{item_total:>6}\n"
+
+        if not has_items:
+            messagebox.showinfo("Alert", "Please select at least one item!")
+            return
+
+        bill_details += "    " + "=" * 32 + "\n"
+        bill_details += f"    Total:{' ' * 15}₹{total:>6}\n"
+        bill_details += f"    Thank you for visiting!\n"
+        bill_details += f"    Please come again! ♥"
+
+        self.bill_text.delete(1.0, tk.END)
+        self.bill_text.insert(tk.END, bill_details)
+
+
+def main():
+    root = tk.Tk()
+    app = CoffeeShop(root)
+    root.mainloop()
+
+
+if __name__ == "__main__":
+    main()
